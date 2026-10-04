@@ -4,6 +4,7 @@ import {
   Link,
   createRootRouteWithContext,
   useRouter,
+  useLocation,
   HeadContent,
   Scripts,
 } from "@tanstack/react-router";
@@ -11,6 +12,7 @@ import { type ReactNode, useEffect } from "react";
 
 import appCss from "../styles.css?url";
 import TopAnnouncementBanner from "@/components/site/TopAnnouncementBanner";
+import { ScrollytellingHome } from "@/components/site/ScrollytellingHome";
 
 function NotFoundComponent() {
   return (
@@ -89,7 +91,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500;700&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=IBM+Plex+Mono:wght@400;500;600;700&family=PT+Serif:ital,wght@0,400;0,700;1,400&family=Zilla+Slab:wght@400;600;700&display=swap",
       },
       { rel: "stylesheet", href: appCss },
       { rel: "icon", href: "/favicon.svg", type: "image/svg+xml" },
@@ -114,8 +116,12 @@ function RootShell({ children }: { children: ReactNode }) {
   );
 }
 
+const CHAPTER_PATHS = ["/", "/about", "/events", "/projects", "/team", "/join"];
+
 function RootComponent() {
   const { queryClient } = Route.useRouteContext();
+  const location = useLocation();
+  const isChapterRoute = CHAPTER_PATHS.includes(location.pathname);
 
   useEffect(() => {
     if (typeof window === "undefined") return;
@@ -127,7 +133,7 @@ function RootComponent() {
       <QueryClientProvider client={queryClient}>
         <TopAnnouncementBanner />
         <main className="relative min-h-screen">
-          <Outlet />
+          {isChapterRoute ? <ScrollytellingHome /> : <Outlet />}
         </main>
       </QueryClientProvider>
     </RootShell>

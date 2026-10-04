@@ -1,6 +1,5 @@
-@import "tailwindcss" source(none);
+@import "tailwindcss";
 @import "tw-animate-css";
-@source "../src";
 
 @custom-variant dark (&:is(.dark *));
 
@@ -11,49 +10,55 @@
    ========================================================= */
 
 @theme inline {
-  --font-display: "Space Grotesk", sans-serif;
-  --font-sans: "Inter", "Plus Jakarta Sans", system-ui, -apple-system, sans-serif;
-  --font-mono: "JetBrains Mono", monospace;
+  --font-display: "Zilla Slab", "Roboto Slab", serif;
+  --font-heading: "Zilla Slab", "Roboto Slab", serif;
+  --font-watermark: "Courier Prime", "JetBrains Mono", monospace;
+  --font-serif: "PT Serif", Georgia, serif;
+  --font-sans: "PT Serif", Georgia, serif;
+  --font-mono: "IBM Plex Mono", "Space Mono", monospace;
 
   /* Chapter 1: Home */
-  --color-ch1-bg: #F5F9FF;
-  --color-ch1-accent: #0B3D91;
+  --color-ch1-bg: #f5f9ff;
+  --color-ch1-accent: #0b3d91;
 
   /* Chapter 2: About */
-  --color-ch2-bg: #E9F1FF;
-  --color-ch2-accent: #1E56C4;
+  --color-ch2-bg: #e9f1ff;
+  --color-ch2-accent: #1e56c4;
 
   /* Chapter 3: Events */
-  --color-ch3-bg: #DCEAFF;
-  --color-ch3-accent: #2C7BE5;
+  --color-ch3-bg: #dceaff;
+  --color-ch3-accent: #2c7be5;
 
   /* Chapter 4: Projects */
-  --color-ch4-bg: #CFE2FF;
-  --color-ch4-accent: #3F8EFF;
+  --color-ch4-bg: #cfe2ff;
+  --color-ch4-accent: #3f8eff;
 
   /* Chapter 5: Team */
-  --color-ch5-bg: #C2D9FF;
-  --color-ch5-accent: #1B2A6B;
+  --color-ch5-bg: #c2d9ff;
+  --color-ch5-accent: #1b2a6b;
 
   /* Chapter 6: Join */
-  --color-ch6-bg: #0B3D91;
-  --color-ch6-accent: #FFFFFF;
+  --color-ch6-bg: #0b3d91;
+  --color-ch6-accent: #ffffff;
 }
 
 :root {
-  --background: #F5F9FF;
-  --foreground: #0B1E36;
-  --primary: #0B3D91;
+  --background: #f5f9ff;
+  --foreground: #0b1e36;
+  --primary: #0b3d91;
   --radius: 1rem;
 }
 
 /* ─── Base Reset & Typography ───────────────────────── */
 @layer base {
-  *, *::before, *::after {
+  *,
+  *::before,
+  *::after {
     box-sizing: border-box;
   }
 
-  html, body {
+  html,
+  body {
     height: 100%;
     margin: 0;
     padding: 0;
@@ -64,8 +69,8 @@
   }
 
   body {
-    background-color: #F5F9FF;
-    color: #0B1E36;
+    background-color: #f5f9ff;
+    color: #0b1e36;
     font-family: var(--font-sans);
     font-size: 15px;
     line-height: 1.6;
@@ -74,17 +79,27 @@
     overflow-x: hidden;
   }
 
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-family: var(--font-display);
-    color: #0B1E36;
+    color: #0b1e36;
     font-weight: 700;
     letter-spacing: -0.03em;
   }
 
   ::selection {
-    background: #CFE2FF;
-    color: #0B3D91;
+    background: #cfe2ff;
+    color: #0b3d91;
   }
+}
+
+.font-watermark {
+  font-family: var(--font-watermark);
+  font-weight: 700;
 }
 
 /* ─── Editorial Hairlines & Rotated Captions ────────── */
@@ -171,7 +186,9 @@
 
 /* ─── Reduced Motion Overrides ────────────────────────── */
 @media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after {
+  *,
+  *::before,
+  *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     transition-duration: 0.01ms !important;
@@ -206,9 +223,9 @@
   -webkit-text-stroke: 1.5px oklch(0.99 0.005 245 / 40%);
   color: transparent;
   transition: -webkit-text-stroke 0.3s ease;
-  
+
   &:hover {
-    -webkit-text-stroke: 1.5px oklch(0.60 0.25 250);
+    -webkit-text-stroke: 1.5px oklch(0.6 0.25 250);
   }
 }
 

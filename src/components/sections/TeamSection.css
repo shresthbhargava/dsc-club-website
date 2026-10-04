@@ -40,6 +40,41 @@
   gap: 8px;
 }
 
+.team-search-box {
+  position: relative;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.team-search-input {
+  width: 100%;
+  padding: 12px 16px 12px 40px;
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(0, 210, 255, 0.25);
+  border-radius: 12px;
+  color: #ffffff;
+  font-family: var(--font-mono, monospace);
+  font-size: 13px;
+  outline: none;
+  transition: all 0.25s ease;
+}
+
+.team-search-input:focus {
+  border-color: #00d2ff;
+  background: rgba(0, 210, 255, 0.06);
+  box-shadow: 0 0 16px rgba(0, 210, 255, 0.2);
+}
+
+.team-search-icon {
+  position: absolute;
+  left: 14px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #00d2ff;
+  font-size: 14px;
+  pointer-events: none;
+}
+
 .team-tab-btn {
   width: 100%;
   text-align: left;
@@ -129,7 +164,8 @@
   }
 
   @keyframes pulseGlow {
-    0%, 100% {
+    0%,
+    100% {
       transform: scale(1);
       opacity: 1;
     }
@@ -155,7 +191,9 @@
     cursor: pointer;
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
-    box-shadow: 0 8px 25px rgba(0, 0, 0, 0.5), 0 0 15px rgba(0, 210, 255, 0.15);
+    box-shadow:
+      0 8px 25px rgba(0, 0, 0, 0.5),
+      0 0 15px rgba(0, 210, 255, 0.15);
     transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
   }
 
@@ -223,7 +261,9 @@
     gap: 4px;
     backdrop-filter: blur(24px);
     -webkit-backdrop-filter: blur(24px);
-    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.7), 0 0 30px rgba(0, 210, 255, 0.2);
+    box-shadow:
+      0 15px 40px rgba(0, 0, 0, 0.7),
+      0 0 30px rgba(0, 210, 255, 0.2);
     animation: dropdownFadeIn 0.25s cubic-bezier(0.4, 0, 0.2, 1);
     z-index: 100;
   }

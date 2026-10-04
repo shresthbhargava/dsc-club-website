@@ -63,6 +63,7 @@ export function DynamicBackground() {
         // Connect nearby nodes
         for (let j = i + 1; j < nodes.length; j++) {
           const n2 = nodes[j];
+          if (!n2) continue;
           const dx = n.x - n2.x;
           const dy = n.y - n2.y;
           const dist = Math.sqrt(dx * dx + dy * dy);
@@ -105,10 +106,5 @@ export function DynamicBackground() {
 
   if (shouldReduceMotion) return null;
 
-  return (
-    <canvas
-      ref={canvasRef}
-      className="fixed inset-0 pointer-events-none z-0 opacity-70"
-    />
-  );
+  return <canvas ref={canvasRef} className="fixed inset-0 pointer-events-none z-0 opacity-70" />;
 }

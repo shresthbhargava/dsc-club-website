@@ -11,9 +11,7 @@ export const APPWRITE_PROJECT_NAME =
 // Appwrite Client Initialization
 export const client = new Client();
 
-client
-  .setEndpoint(APPWRITE_ENDPOINT)
-  .setProject(APPWRITE_PROJECT_ID);
+client.setEndpoint(APPWRITE_ENDPOINT).setProject(APPWRITE_PROJECT_ID);
 
 // Services
 export const account = new Account(client);
@@ -25,7 +23,8 @@ export const teams = new Teams(client);
 export const APPWRITE_DATABASE_ID =
   (import.meta.env["VITE_APPWRITE_DATABASE_ID"] as string) || "dscvitb_db";
 export const APPWRITE_RECRUITMENT_COLLECTION_ID =
-  (import.meta.env["VITE_APPWRITE_RECRUITMENT_COLLECTION_ID"] as string) || "recruitment_applications";
+  (import.meta.env["VITE_APPWRITE_RECRUITMENT_COLLECTION_ID"] as string) ||
+  "recruitment_applications";
 
 // Recruitment Form Data Interface
 export interface RecruitmentData {
@@ -34,12 +33,12 @@ export interface RecruitmentData {
   email: string;
   phone: string;
   preferredTeam: string;
-  githubUrl?: string;
-  linkedinUrl?: string;
-  portfolioUrl?: string;
+  githubUrl?: string | undefined;
+  linkedinUrl?: string | undefined;
+  portfolioUrl?: string | undefined;
   whyJoin: string;
-  experience?: string;
-  status?: "pending" | "under_review" | "shortlisted" | "accepted" | "rejected";
+  experience?: string | undefined;
+  status?: "pending" | "under_review" | "shortlisted" | "accepted" | "rejected" | undefined;
 }
 
 /**
@@ -55,12 +54,13 @@ export async function submitRecruitmentApplication(data: RecruitmentData) {
         ...data,
         status: data.status || "pending",
         submittedAt: new Date().toISOString(),
-      }
+      },
     );
     return { success: true, document: response };
-  } catch (error: any) {
+  } catch (error: unknown) {
     console.error("Appwrite Recruitment Submission Error:", error);
-    return { success: false, error: error?.message || "Submission failed" };
+    const message = error instanceof Error ? error.message : "Submission failed";
+    return { success: false, error: message };
   }
 }
 
@@ -70,7 +70,7 @@ export async function submitRecruitmentApplication(data: RecruitmentData) {
 export async function getCurrentUser() {
   try {
     return await account.get();
-  } catch (error) {
+  } catch {
     return null;
   }
 }
@@ -83,8 +83,9 @@ export async function signUpUser(email: string, pass: string, name: string) {
     const newAcc = await account.create(ID.unique(), email, pass, name);
     await account.createEmailPasswordSession(email, pass);
     return { success: true, user: newAcc };
-  } catch (error: any) {
-    return { success: false, error: error?.message || "Sign up failed" };
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : "Sign up failed";
+    return { success: false, error: message };
   }
 }
 
@@ -96,8 +97,9 @@ export async function loginUser(email: string, pass: string) {
     const session = await account.createEmailPasswordSession(email, pass);
     const user = await account.get();
     return { success: true, session, user };
-  } catch (error: any) {
-    return { success: false, error: error?.message || "Login failed" };
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : "Login failed";
+    return { success: false, error: message };
   }
 }
 
@@ -108,8 +110,9 @@ export async function logoutUser() {
   try {
     await account.deleteSession("current");
     return { success: true };
-  } catch (error: any) {
-    return { success: false, error: error?.message || "Logout failed" };
+  } catch (error: unknown) {
+    const message = error instanceof Error ? error.message : "Logout failed";
+    return { success: false, error: message };
   }
 }
 

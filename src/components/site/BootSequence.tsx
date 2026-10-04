@@ -116,10 +116,7 @@ export function BootSequence({ onComplete }: Props) {
                 {line.text}
                 {/* Blinking cursor on last visible line */}
                 {visibleLines[visibleLines.length - 1] === i && !showPrompt && (
-                  <span
-                    style={{ color: "#e8e8f0" }}
-                    className="animate-blink-cursor ml-1"
-                  >
+                  <span style={{ color: "#e8e8f0" }} className="animate-blink-cursor ml-1">
                     █
                   </span>
                 )}
@@ -127,11 +124,7 @@ export function BootSequence({ onComplete }: Props) {
             ))}
 
             {showPrompt && (
-              <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                className="mt-6"
-              >
+              <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="mt-6">
                 <span
                   className="animate-insert-coin"
                   style={{

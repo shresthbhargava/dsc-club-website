@@ -68,7 +68,7 @@ export function LossLandscape3D() {
     const geometry = new THREE.PlaneGeometry(size, size, gridRes, gridRes);
     geometry.rotateX(-Math.PI / 2);
 
-    const pos = geometry.attributes.position as THREE.BufferAttribute;
+    const pos = geometry.getAttribute("position") as THREE.BufferAttribute;
     for (let i = 0; i < pos.count; i++) {
       const px = pos.getX(i);
       const pz = pos.getZ(i);
@@ -127,7 +127,7 @@ export function LossLandscape3D() {
       stateRef.current.iteration = 0;
       trailCount = 0;
       for (let i = 0; i < maxPoints * 3; i++) trailPositions[i] = 0;
-      trailGeometry.attributes.position.needsUpdate = true;
+      (trailGeometry.getAttribute("position") as THREE.BufferAttribute).needsUpdate = true;
     };
 
     (container as unknown as { reset: () => void }).reset = resetBall;
@@ -149,7 +149,7 @@ export function LossLandscape3D() {
         trailPositions[trailCount * 3] = ball.position.x;
         trailPositions[trailCount * 3 + 1] = ball.position.y;
         trailPositions[trailCount * 3 + 2] = ball.position.z;
-        trailGeometry.attributes.position.needsUpdate = true;
+        (trailGeometry.getAttribute("position") as THREE.BufferAttribute).needsUpdate = true;
         trailCount++;
       }
 
@@ -178,10 +178,14 @@ export function LossLandscape3D() {
           stateRef.current.vX_adam = beta2 * stateRef.current.vX_adam + (1 - beta2) * gx * gx;
           stateRef.current.vY_adam = beta2 * stateRef.current.vY_adam + (1 - beta2) * gy * gy;
 
-          const mX_hat = stateRef.current.mX / (1 - Math.pow(beta1, stateRef.current.iteration + 1));
-          const mY_hat = stateRef.current.mY / (1 - Math.pow(beta1, stateRef.current.iteration + 1));
-          const vX_hat = stateRef.current.vX_adam / (1 - Math.pow(beta2, stateRef.current.iteration + 1));
-          const vY_hat = stateRef.current.vY_adam / (1 - Math.pow(beta2, stateRef.current.iteration + 1));
+          const mX_hat =
+            stateRef.current.mX / (1 - Math.pow(beta1, stateRef.current.iteration + 1));
+          const mY_hat =
+            stateRef.current.mY / (1 - Math.pow(beta1, stateRef.current.iteration + 1));
+          const vX_hat =
+            stateRef.current.vX_adam / (1 - Math.pow(beta2, stateRef.current.iteration + 1));
+          const vY_hat =
+            stateRef.current.vY_adam / (1 - Math.pow(beta2, stateRef.current.iteration + 1));
 
           stateRef.current.ballX -= (lr * mX_hat) / (Math.sqrt(vX_hat) + eps);
           stateRef.current.ballY -= (lr * mY_hat) / (Math.sqrt(vY_hat) + eps);
@@ -307,7 +311,9 @@ export function LossLandscape3D() {
           <button
             onClick={toggleRun}
             className={`flex-1 sm:flex-none inline-flex items-center justify-center gap-2 rounded-xl px-4 py-2.5 text-xs font-bold min-h-[44px] transition-all ${
-              isRunning ? "bg-amber-500 text-slate-950" : "bg-sky-400 text-slate-950 hover:bg-sky-300"
+              isRunning
+                ? "bg-amber-500 text-slate-950"
+                : "bg-sky-400 text-slate-950 hover:bg-sky-300"
             }`}
           >
             {isRunning ? (

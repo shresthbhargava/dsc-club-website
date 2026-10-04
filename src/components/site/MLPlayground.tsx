@@ -69,7 +69,8 @@ export function MLPlayground() {
 
         pointsRef.current.forEach((pt) => {
           // Sigmoid activation
-          const z = weightsRef.current.w1 * pt.x + weightsRef.current.w2 * pt.y + weightsRef.current.bias;
+          const z =
+            weightsRef.current.w1 * pt.x + weightsRef.current.w2 * pt.y + weightsRef.current.bias;
           const pred = 1 / (1 + Math.exp(-z));
 
           // Loss calculation
@@ -116,7 +117,8 @@ export function MLPlayground() {
       for (let j = 0; j < resolution; j++) {
         const normX = (i / resolution) * 2 - 1;
         const normY = (j / resolution) * 2 - 1;
-        const z = weightsRef.current.w1 * normX + weightsRef.current.w2 * normY + weightsRef.current.bias;
+        const z =
+          weightsRef.current.w1 * normX + weightsRef.current.w2 * normY + weightsRef.current.bias;
         const prob = 1 / (1 + Math.exp(-z));
 
         // Color mesh without gradients: Crisp solid classification regions
@@ -188,11 +190,17 @@ export function MLPlayground() {
         {/* Live Metrics Dossier */}
         <div className="flex flex-wrap gap-4 rounded-2xl border border-white/10 bg-slate-900/60 p-3 text-xs">
           <div>
-            <span className="block text-[10px] text-slate-500 uppercase tracking-widest">EPOCH</span>
-            <span className="font-bold text-white">{currentEpoch} / {epochs}</span>
+            <span className="block text-[10px] text-slate-500 uppercase tracking-widest">
+              EPOCH
+            </span>
+            <span className="font-bold text-white">
+              {currentEpoch} / {epochs}
+            </span>
           </div>
           <div className="border-l border-white/10 pl-4">
-            <span className="block text-[10px] text-slate-500 uppercase tracking-widest">ACCURACY</span>
+            <span className="block text-[10px] text-slate-500 uppercase tracking-widest">
+              ACCURACY
+            </span>
             <span className="font-bold text-cyan-400">{accuracy}%</span>
           </div>
           <div className="border-l border-white/10 pl-4">
@@ -204,7 +212,6 @@ export function MLPlayground() {
 
       {/* Main Grid: Controls + Decision Boundary Canvas */}
       <div className="mt-8 grid gap-8 md:grid-cols-12 items-center">
-        
         {/* Controls Column */}
         <div className="space-y-6 md:col-span-5">
           <label className="block text-xs uppercase tracking-wider text-slate-300">
@@ -262,7 +269,11 @@ export function MLPlayground() {
               disabled={isTraining}
               className="btn-neon flex-1 rounded-xl py-3.5 text-xs font-bold flex items-center justify-center gap-2 disabled:opacity-50"
             >
-              {isTraining ? <Activity className="size-4 animate-spin" /> : <Play className="size-4" />}
+              {isTraining ? (
+                <Activity className="size-4 animate-spin" />
+              ) : (
+                <Play className="size-4" />
+              )}
               {isTraining ? "Training..." : "Run Epoch Sprint"}
             </button>
 
@@ -290,7 +301,6 @@ export function MLPlayground() {
             </div>
           </div>
         </div>
-
       </div>
     </div>
   );

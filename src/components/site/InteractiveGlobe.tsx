@@ -41,7 +41,7 @@ export function InteractiveGlobe({ size = 440 }: { size?: number }) {
         const x = radius * cosPhi * Math.cos(theta);
         const y = radius * sinPhi;
         const z = radius * cosPhi * Math.sin(theta);
-        
+
         const isHub = Math.random() > 0.92;
         points.push({ x, y, z, isHub });
       }
@@ -137,7 +137,7 @@ export function InteractiveGlobe({ size = 440 }: { size?: number }) {
           let r = rotateY({ x, y, z }, angleY);
           r = rotateX(r, angleX);
           const scale = 420 / (420 + r.z);
-          
+
           if (r.z < 20) {
             const alpha = Math.max(0.02, (radius - r.z) / (radius * 2.2)) * 0.25;
             ctx.strokeStyle = `rgba(0, 240, 255, ${alpha})`;
@@ -180,7 +180,7 @@ export function InteractiveGlobe({ size = 440 }: { size?: number }) {
       // Draw Nodes (Solid Points, Zero Gradients)
       projected.forEach((p) => {
         const depthAlpha = Math.max(0.1, 1 - (p.z + radius) / (radius * 2));
-        
+
         if (p.isHub) {
           ctx.beginPath();
           ctx.arc(p.x, p.y, 4, 0, Math.PI * 2);
@@ -213,7 +213,10 @@ export function InteractiveGlobe({ size = 440 }: { size?: number }) {
 
   return (
     <div className="relative flex items-center justify-center">
-      <div className="absolute rounded-full border border-cyan-400/10 pointer-events-none" style={{ width: `${size * 0.85}px`, height: `${size * 0.85}px` }} />
+      <div
+        className="absolute rounded-full border border-cyan-400/10 pointer-events-none"
+        style={{ width: `${size * 0.85}px`, height: `${size * 0.85}px` }}
+      />
       <canvas ref={canvasRef} className="relative z-10 block select-none" />
     </div>
   );

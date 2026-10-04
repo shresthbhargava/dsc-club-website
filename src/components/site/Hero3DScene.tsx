@@ -159,7 +159,7 @@ export function Hero3DScene() {
 
     // 6. Animation Loop
     let animationFrameId: number;
-    let clock = new THREE.Clock();
+    const clock = new THREE.Clock();
 
     const animate = () => {
       animationFrameId = requestAnimationFrame(animate);
@@ -178,22 +178,32 @@ export function Hero3DScene() {
       core.rotation.z += 0.002;
 
       // Particle Position Morphing & Wave Pulsing
-      const pos = geometry.attributes.position as THREE.BufferAttribute;
+      const pos = geometry.getAttribute("position") as THREE.BufferAttribute;
       const arr = pos.array as Float32Array;
 
       for (let i = 0; i < particleCount; i++) {
         const i3 = i * 3;
         // Interpolate towards target positions
-        arr[i3] += (targetPositions[i3]! - arr[i3]!) * 0.06;
-        arr[i3 + 1] += (targetPositions[i3 + 1]! - arr[i3 + 1]!) * 0.06;
-        arr[i3 + 2] += (targetPositions[i3 + 2]! - arr[i3 + 2]!) * 0.06;
+        const t0 = targetPositions[i3] ?? 0;
+        const t1 = targetPositions[i3 + 1] ?? 0;
+        const t2 = targetPositions[i3 + 2] ?? 0;
+        const a0 = arr[i3] ?? 0;
+        const a1 = arr[i3 + 1] ?? 0;
+        const a2 = arr[i3 + 2] ?? 0;
+
+        arr[i3] = a0 + (t0 - a0) * 0.06;
+        arr[i3 + 1] = a1 + (t1 - a1) * 0.06;
+        arr[i3 + 2] = a2 + (t2 - a2) * 0.06;
 
         // Subtle organic noise pulse
         if (sceneStateRef.current.mode === "dense") {
           const wave = Math.sin(elapsedTime * 2 + i * 0.1) * 0.02;
-          arr[i3] += wave * (arr[i3]! / 8);
-          arr[i3 + 1] += wave * (arr[i3 + 1]! / 8);
-          arr[i3 + 2] += wave * (arr[i3 + 2]! / 8);
+          const curr0 = arr[i3] ?? 0;
+          const curr1 = arr[i3 + 1] ?? 0;
+          const curr2 = arr[i3 + 2] ?? 0;
+          arr[i3] = curr0 + wave * (curr0 / 8);
+          arr[i3 + 1] = curr1 + wave * (curr1 / 8);
+          arr[i3 + 2] = curr2 + wave * (curr2 / 8);
         }
       }
       pos.needsUpdate = true;
@@ -204,29 +214,30 @@ export function Hero3DScene() {
     animate();
 
     // 7. Morphing Handler Exposer
-    (container as unknown as { morphTo: (mode: "dense" | "expanded" | "torus") => void }).morphTo = (mode) => {
-      sceneStateRef.current.mode = mode;
-      for (let i = 0; i < particleCount; i++) {
-        const i3 = i * 3;
-        if (mode === "dense") {
-          targetPositions[i3] = originalPositions[i3]!;
-          targetPositions[i3 + 1] = originalPositions[i3 + 1]!;
-          targetPositions[i3 + 2] = originalPositions[i3 + 2]!;
-        } else if (mode === "expanded") {
-          targetPositions[i3] = originalPositions[i3]! * 1.6 + (Math.random() - 0.5) * 4;
-          targetPositions[i3 + 1] = originalPositions[i3 + 1]! * 1.6 + (Math.random() - 0.5) * 4;
-          targetPositions[i3 + 2] = originalPositions[i3 + 2]! * 1.6 + (Math.random() - 0.5) * 4;
-        } else if (mode === "torus") {
-          const u = Math.random() * Math.PI * 2;
-          const v = Math.random() * Math.PI * 2;
-          const R = 8.5;
-          const r = 3.0;
-          targetPositions[i3] = (R + r * Math.cos(v)) * Math.cos(u);
-          targetPositions[i3 + 1] = (R + r * Math.cos(v)) * Math.sin(u);
-          targetPositions[i3 + 2] = r * Math.sin(v);
+    (container as unknown as { morphTo: (mode: "dense" | "expanded" | "torus") => void }).morphTo =
+      (mode) => {
+        sceneStateRef.current.mode = mode;
+        for (let i = 0; i < particleCount; i++) {
+          const i3 = i * 3;
+          if (mode === "dense") {
+            targetPositions[i3] = originalPositions[i3]!;
+            targetPositions[i3 + 1] = originalPositions[i3 + 1]!;
+            targetPositions[i3 + 2] = originalPositions[i3 + 2]!;
+          } else if (mode === "expanded") {
+            targetPositions[i3] = originalPositions[i3]! * 1.6 + (Math.random() - 0.5) * 4;
+            targetPositions[i3 + 1] = originalPositions[i3 + 1]! * 1.6 + (Math.random() - 0.5) * 4;
+            targetPositions[i3 + 2] = originalPositions[i3 + 2]! * 1.6 + (Math.random() - 0.5) * 4;
+          } else if (mode === "torus") {
+            const u = Math.random() * Math.PI * 2;
+            const v = Math.random() * Math.PI * 2;
+            const R = 8.5;
+            const r = 3.0;
+            targetPositions[i3] = (R + r * Math.cos(v)) * Math.cos(u);
+            targetPositions[i3 + 1] = (R + r * Math.cos(v)) * Math.sin(u);
+            targetPositions[i3 + 2] = r * Math.sin(v);
+          }
         }
-      }
-    };
+      };
 
     // Resize Handler
     const handleResize = () => {
@@ -264,7 +275,10 @@ export function Hero3DScene() {
   const switchMode = (mode: "dense" | "expanded" | "torus") => {
     setActiveCluster(mode);
     soundEngine.playClick();
-    if (mountRef.current && (mountRef.current as unknown as { morphTo?: (m: string) => void }).morphTo) {
+    if (
+      mountRef.current &&
+      (mountRef.current as unknown as { morphTo?: (m: string) => void }).morphTo
+    ) {
       (mountRef.current as unknown as { morphTo: (m: string) => void }).morphTo(mode);
     }
   };

@@ -40,7 +40,8 @@ function GalleryRoute() {
       category: "hackathons",
       categoryLabel: "Hackathon",
       date: "OCT 2025",
-      imgUrl: "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=800&q=80",
+      imgUrl:
+        "https://images.unsplash.com/photo-1531482615713-2afd69097998?auto=format&fit=crop&w=800&q=80",
     },
     {
       id: "g-2",
@@ -48,7 +49,8 @@ function GalleryRoute() {
       category: "workshops",
       categoryLabel: "Workshop",
       date: "NOV 2025",
-      imgUrl: "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=800&q=80",
+      imgUrl:
+        "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?auto=format&fit=crop&w=800&q=80",
     },
     {
       id: "g-3",
@@ -56,7 +58,8 @@ function GalleryRoute() {
       category: "team",
       categoryLabel: "Community",
       date: "DEC 2025",
-      imgUrl: "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80",
+      imgUrl:
+        "https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80",
     },
     {
       id: "g-4",
@@ -64,12 +67,12 @@ function GalleryRoute() {
       category: "workshops",
       categoryLabel: "Workshop",
       date: "JAN 2026",
-      imgUrl: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80",
+      imgUrl:
+        "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?auto=format&fit=crop&w=800&q=80",
     },
   ];
 
-  const filteredPhotos =
-    filter === "all" ? photos : photos.filter((p) => p.category === filter);
+  const filteredPhotos = filter === "all" ? photos : photos.filter((p) => p.category === filter);
 
   return (
     <div className="min-h-screen bg-[#F5F9FF] text-[#0B1E36] p-6 sm:p-12 lg:p-16 relative">
@@ -94,7 +97,8 @@ function GalleryRoute() {
             Community <span className="text-[#0B3D91]">Gallery & Retrospective</span>
           </h1>
           <p className="text-slate-600 text-base leading-relaxed">
-            Visual retrospective of our hackathons, bootcamps, code sprints, and community gatherings.
+            Visual retrospective of our hackathons, bootcamps, code sprints, and community
+            gatherings.
           </p>
         </div>
 

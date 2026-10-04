@@ -39,7 +39,7 @@ export function PixelParticles({ className = "" }: { className?: string }) {
         vx: (Math.random() - 0.5) * 0.4,
         vy: (Math.random() - 0.5) * 0.4,
         size: Math.random() > 0.8 ? 3 : 2,
-        color: COLORS[Math.floor(Math.random() * COLORS.length)],
+        color: COLORS[Math.floor(Math.random() * COLORS.length)] ?? "#4466ff",
         alpha: Math.random() * 0.6 + 0.3,
         connections: [],
       }));
@@ -77,21 +77,25 @@ export function PixelParticles({ className = "" }: { className?: string }) {
 
       // Draw constellation lines
       for (let i = 0; i < pts.length; i++) {
+        const pi = pts[i];
+        if (!pi) continue;
         for (let j = i + 1; j < pts.length; j++) {
-          const dx = pts[i].x - pts[j].x;
-          const dy = pts[i].y - pts[j].y;
+          const pj = pts[j];
+          if (!pj) continue;
+          const dx = pi.x - pj.x;
+          const dy = pi.y - pj.y;
           const dist = Math.sqrt(dx * dx + dy * dy);
           if (dist < 100) {
             const alpha = (1 - dist / 100) * 0.25;
             ctx.save();
-            ctx.strokeStyle = pts[i].color;
+            ctx.strokeStyle = pi.color;
             ctx.globalAlpha = alpha;
             ctx.lineWidth = 1;
             // Pixel-stepped line simulation
             ctx.imageSmoothingEnabled = false;
             ctx.beginPath();
-            ctx.moveTo(Math.round(pts[i].x), Math.round(pts[i].y));
-            ctx.lineTo(Math.round(pts[j].x), Math.round(pts[j].y));
+            ctx.moveTo(Math.round(pi.x), Math.round(pi.y));
+            ctx.lineTo(Math.round(pj.x), Math.round(pj.y));
             ctx.stroke();
             ctx.restore();
           }

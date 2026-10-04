@@ -27,8 +27,19 @@ interface CommandItem {
   shortcut?: string;
 }
 
-export function CommandPalette() {
-  const [open, setOpen] = useState(false);
+interface CommandPaletteProps {
+  open?: boolean;
+  onClose?: () => void;
+}
+
+export function CommandPalette({ open: externalOpen, onClose }: CommandPaletteProps = {}) {
+  const [internalOpen, setInternalOpen] = useState(false);
+  const open = externalOpen !== undefined ? externalOpen : internalOpen;
+  const setOpen = (val: boolean | ((prev: boolean) => boolean)) => {
+    const nextVal = typeof val === "function" ? val(open) : val;
+    if (!nextVal && onClose) onClose();
+    setInternalOpen(nextVal);
+  };
   const [query, setQuery] = useState("");
   const navigate = useNavigate();
 
@@ -134,7 +145,7 @@ export function CommandPalette() {
   const filtered = items.filter(
     (item) =>
       item.title.toLowerCase().includes(query.toLowerCase()) ||
-      item.category.toLowerCase().includes(query.toLowerCase())
+      item.category.toLowerCase().includes(query.toLowerCase()),
   );
 
   if (!open) return null;

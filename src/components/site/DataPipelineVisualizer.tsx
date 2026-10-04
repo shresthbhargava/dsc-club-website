@@ -129,10 +129,16 @@ export function DataPipelineVisualizer() {
             >
               <div className="flex items-center justify-between text-xs font-bold text-sky-400">
                 <span>{s.id}</span>
-                <Icon className={`w-3.5 h-3.5 transition-transform group-hover:scale-110 ${isActive ? "text-white" : ""}`} />
+                <Icon
+                  className={`w-3.5 h-3.5 transition-transform group-hover:scale-110 ${isActive ? "text-white" : ""}`}
+                />
               </div>
-              <div className="mt-2 text-[11px] sm:text-xs font-bold truncate text-white">{s.title}</div>
-              <div className="mt-0.5 text-[9px] sm:text-[10px] text-sky-300/70 truncate">{s.throughput}</div>
+              <div className="mt-2 text-[11px] sm:text-xs font-bold truncate text-white">
+                {s.title}
+              </div>
+              <div className="mt-0.5 text-[9px] sm:text-[10px] text-sky-300/70 truncate">
+                {s.throughput}
+              </div>
             </button>
           );
         })}
@@ -147,7 +153,9 @@ export function DataPipelineVisualizer() {
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-ping" />
               STAGE {current.id} ACTIVE // HIGH-THROUGHPUT
             </div>
-            <h4 className="font-display text-lg sm:text-xl font-bold text-white">{current.title}</h4>
+            <h4 className="font-display text-lg sm:text-xl font-bold text-white">
+              {current.title}
+            </h4>
             <p className="text-xs text-slate-300 leading-relaxed font-sans">{current.desc}</p>
           </div>
 

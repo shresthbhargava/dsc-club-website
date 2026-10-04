@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
+import { Link } from "@tanstack/react-router";
 import {
   Github,
   Linkedin,
@@ -9,6 +10,7 @@ import {
   X,
   ChevronRight,
   Database,
+  Lock,
 } from "lucide-react";
 
 export interface ChapterNav {
@@ -16,6 +18,7 @@ export interface ChapterNav {
   number: string; // "01", "02", etc.
   title: string; // "Home", "About", etc.
   accentColor: string; // "#0B3D91", etc.
+  route?: string; // "/", "/about", etc.
 }
 
 interface SidebarProps {
@@ -24,11 +27,7 @@ interface SidebarProps {
   onSelectChapter: (chapterId: string) => void;
 }
 
-export function Sidebar({
-  chapters,
-  activeChapterId,
-  onSelectChapter,
-}: SidebarProps) {
+export function Sidebar({ chapters, activeChapterId, onSelectChapter }: SidebarProps) {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   useEffect(() => {
@@ -60,7 +59,7 @@ export function Sidebar({
           >
             <Database className="w-5 h-5" />
           </button>
-          
+
           <div className="writing-mode-vertical text-[10px] font-bold tracking-[0.25em] uppercase text-slate-500 mt-2">
             DATA SCIENCE CLUB <span className="text-[#0B3D91]">• VIT BHOPAL</span>
           </div>
@@ -70,10 +69,16 @@ export function Sidebar({
         <nav className="flex flex-col items-center gap-4 my-auto">
           {chapters.map((ch) => {
             const isActive = activeChapterId === ch.id;
+            const toPath = ch.route || (ch.id === "home" ? "/" : `/${ch.id}`);
             return (
-              <button
+              <Link
                 key={ch.id}
-                onClick={() => handleNavClick(ch.id)}
+                to={toPath}
+                onClick={(e) => {
+                  if (e.button === 0 && !e.ctrlKey && !e.metaKey) {
+                    handleNavClick(ch.id);
+                  }
+                }}
                 className={`group relative flex items-center justify-center w-10 h-10 rounded-full transition-all duration-300 ${
                   isActive
                     ? "bg-[#0B3D91] text-white shadow-md scale-110"
@@ -85,10 +90,10 @@ export function Sidebar({
                 <span className="font-mono text-xs font-bold">{ch.number}</span>
 
                 {/* Tooltip on Hover */}
-                <span className="absolute left-14 px-3 py-1.5 rounded-lg bg-slate-900 text-white text-xs font-medium whitespace-nowrap opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-200 shadow-xl z-50">
+                <span className="absolute left-14 px-3 py-1.5 rounded-lg bg-slate-900 text-white text-xs font-mono font-medium whitespace-nowrap opacity-0 group-hover:opacity-100 pointer-events-none transition-opacity duration-200 shadow-xl z-50">
                   {ch.number} — {ch.title}
                 </span>
-              </button>
+              </Link>
             );
           })}
         </nav>
@@ -130,6 +135,16 @@ export function Sidebar({
             aria-label="Instagram"
           >
             <Instagram className="w-4 h-4" />
+          </a>
+          <a
+            href="https://dscvitb.vercel.app/admin"
+            target="_blank"
+            rel="noreferrer"
+            className="hover:text-[#0B3D91] transition-colors"
+            aria-label="Admin Portal"
+            title="Admin Portal"
+          >
+            <Lock className="w-4 h-4" />
           </a>
         </div>
       </aside>
@@ -196,10 +211,16 @@ export function Sidebar({
             <nav className="py-8 space-y-3">
               {chapters.map((ch) => {
                 const isActive = activeChapterId === ch.id;
+                const toPath = ch.route || (ch.id === "home" ? "/" : `/${ch.id}`);
                 return (
-                  <button
+                  <Link
                     key={ch.id}
-                    onClick={() => handleNavClick(ch.id)}
+                    to={toPath}
+                    onClick={(e) => {
+                      if (e.button === 0 && !e.ctrlKey && !e.metaKey) {
+                        handleNavClick(ch.id);
+                      }
+                    }}
                     className={`w-full flex items-center justify-between p-4 rounded-2xl border transition-all text-left ${
                       isActive
                         ? "bg-[#0B3D91] text-white border-[#0B3D91] shadow-lg"
@@ -216,16 +237,12 @@ export function Sidebar({
                       >
                         {ch.number}
                       </span>
-                      <span className="font-display font-bold text-lg">
-                        {ch.title}
-                      </span>
+                      <span className="font-display font-bold text-lg">{ch.title}</span>
                     </div>
                     <ChevronRight
-                      className={`w-5 h-5 ${
-                        isActive ? "text-white" : "text-slate-400"
-                      }`}
+                      className={`w-5 h-5 ${isActive ? "text-white" : "text-slate-400"}`}
                     />
-                  </button>
+                  </Link>
                 );
               })}
             </nav>
@@ -242,6 +259,15 @@ export function Sidebar({
                 </a>
                 <a href="https://linkedin.com" target="_blank" rel="noreferrer">
                   <Linkedin className="w-5 h-5 text-slate-600" />
+                </a>
+                <a
+                  href="https://dscvitb.vercel.app/admin"
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label="Admin Portal"
+                  title="Admin Portal"
+                >
+                  <Lock className="w-5 h-5 text-slate-600 hover:text-[#0B3D91] transition-colors" />
                 </a>
               </div>
             </div>

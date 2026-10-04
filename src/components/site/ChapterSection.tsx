@@ -1,5 +1,6 @@
 import { type ReactNode } from "react";
 import { motion, useReducedMotion } from "framer-motion";
+import { ChapterLineArt } from "./ChapterLineArt";
 
 interface ChapterSectionProps {
   id: string; // e.g. "home", "about", etc.
@@ -49,7 +50,7 @@ export function ChapterSection({
     visible: {
       opacity: 1,
       y: 0,
-      transition: { duration: 0.35, ease: "easeOut" },
+      transition: { duration: 0.35, ease: "easeOut" as const },
     },
   };
 
@@ -63,9 +64,12 @@ export function ChapterSection({
         color: textColor,
       }}
     >
+      {/* Background Monoline Data Science Line-Art Illustration */}
+      <ChapterLineArt chapterId={id} accentColor={accentColor} />
+
       {/* OVERSIZED HERO WATERMARK CHAPTER NUMERAL (Low opacity background depth) */}
       <div
-        className="absolute right-4 bottom-4 sm:right-12 sm:bottom-6 text-[8rem] sm:text-[14rem] lg:text-[22rem] font-display font-black leading-none pointer-events-none select-none z-0 opacity-[0.03] overflow-hidden"
+        className="absolute right-4 bottom-4 sm:right-12 sm:bottom-6 text-[8rem] sm:text-[14rem] lg:text-[22rem] font-watermark font-bold leading-none pointer-events-none select-none z-0 opacity-[0.03] overflow-hidden"
         style={{ color: accentColor }}
         aria-hidden="true"
       >

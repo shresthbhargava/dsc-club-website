@@ -56,21 +56,14 @@ export function EventCard({
           </div>
 
           {/* Circular Thumbnail with Duotone Effect */}
-          <CircleImage
-            src={imgUrl}
-            alt={title}
-            size={65}
-            accentColor={accentColor}
-          />
+          <CircleImage src={imgUrl} alt={title} size={65} accentColor={accentColor} />
         </div>
 
         {/* Title & Description */}
         <h3 className="text-base sm:text-lg font-bold font-display text-slate-900 mb-2 leading-tight group-hover:text-[#2C7BE5] transition-colors">
           {title}
         </h3>
-        <p className="text-xs text-slate-600 leading-relaxed mb-4 line-clamp-2">
-          {desc}
-        </p>
+        <p className="text-xs text-slate-600 leading-relaxed mb-4 line-clamp-2">{desc}</p>
 
         {/* Time & Venue Pills */}
         <div className="space-y-1.5 text-[11px] font-mono text-slate-500 mb-4">

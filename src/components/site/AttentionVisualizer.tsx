@@ -207,11 +207,7 @@ export function AttentionVisualizer() {
             <div className="flex justify-between border-b border-white/5 pb-1">
               <span className="text-slate-400">Highest Attention:</span>
               <span className="text-emerald-400 font-bold">
-                {
-                  sampleTokens[
-                    currentWeights.indexOf(Math.max(...currentWeights))
-                  ]
-                }
+                {sampleTokens[currentWeights.indexOf(Math.max(...currentWeights))]}
               </span>
             </div>
           </div>

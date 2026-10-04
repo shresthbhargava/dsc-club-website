@@ -49,7 +49,9 @@ export function JoinCTA() {
         </h2>
 
         <p className="text-blue-100 text-sm sm:text-base max-w-2xl mx-auto leading-relaxed font-sans">
-          Connect with 1,500+ student data engineers, machine learning developers, and researchers across campus. Participate in workshops, build open-source software, and join hackathon teams.
+          Connect with 1,500+ student data engineers, machine learning developers, and researchers
+          across campus. Participate in workshops, build open-source software, and join hackathon
+          teams.
         </p>
       </div>
 
@@ -61,11 +63,10 @@ export function JoinCTA() {
               <ShieldCheck className="w-4 h-4" />
               <span>OFFICIAL STUDENT CHAPTER</span>
             </div>
-            <h3 className="text-2xl font-bold font-display text-white">
-              Membership Registration
-            </h3>
+            <h3 className="text-2xl font-bold font-display text-white">Membership Registration</h3>
             <p className="text-xs text-blue-100 max-w-md">
-              Access technical bootcamps, community Discord channels, project collaboration groups, and hackathon teams.
+              Access technical bootcamps, community Discord channels, project collaboration groups,
+              and hackathon teams.
             </p>
           </div>
 
@@ -82,7 +83,7 @@ export function JoinCTA() {
       {/* Footer Contact & Socials */}
       <div className="pt-6 border-t border-white/20 flex flex-col sm:flex-row items-center justify-between gap-4 text-xs font-mono text-blue-200">
         <span>VIT BHOPAL UNIVERSITY • SEHORE, MADHYA PRADESH</span>
-        
+
         <div className="flex items-center gap-4 text-white">
           <a
             href="https://discord.gg"
@@ -234,7 +235,8 @@ export function JoinCTA() {
                     Registration Submitted!
                   </h3>
                   <p className="text-xs text-slate-600">
-                    Welcome to the club, <strong>{fullName}</strong>! An invite link has been sent to {email}.
+                    Welcome to the club, <strong>{fullName}</strong>! An invite link has been sent
+                    to {email}.
                   </p>
                   <button
                     onClick={() => {

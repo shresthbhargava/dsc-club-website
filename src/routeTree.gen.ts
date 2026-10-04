@@ -16,6 +16,8 @@ import { Route as EventsRouteImport } from './routes/events'
 import { Route as GalleryRouteImport } from './routes/gallery'
 import { Route as JoinRouteImport } from './routes/join'
 import { Route as MembersRouteImport } from './routes/members'
+import { Route as ProjectsRouteImport } from './routes/projects'
+import { Route as TeamRouteImport } from './routes/team'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -52,6 +54,16 @@ const MembersRoute = MembersRouteImport.update({
   path: '/members',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProjectsRoute = ProjectsRouteImport.update({
+  id: '/projects',
+  path: '/projects',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TeamRoute = TeamRouteImport.update({
+  id: '/team',
+  path: '/team',
+  getParentRoute: () => rootRouteImport,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -61,6 +73,8 @@ export interface FileRoutesByFullPath {
   '/gallery': typeof GalleryRoute
   '/join': typeof JoinRoute
   '/members': typeof MembersRoute
+  '/projects': typeof ProjectsRoute
+  '/team': typeof TeamRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -70,6 +84,8 @@ export interface FileRoutesByTo {
   '/gallery': typeof GalleryRoute
   '/join': typeof JoinRoute
   '/members': typeof MembersRoute
+  '/projects': typeof ProjectsRoute
+  '/team': typeof TeamRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -80,13 +96,32 @@ export interface FileRoutesById {
   '/gallery': typeof GalleryRoute
   '/join': typeof JoinRoute
   '/members': typeof MembersRoute
+  '/projects': typeof ProjectsRoute
+  '/team': typeof TeamRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
-    '/' | '/about' | '/admin' | '/events' | '/gallery' | '/join' | '/members'
+    | '/'
+    | '/about'
+    | '/admin'
+    | '/events'
+    | '/gallery'
+    | '/join'
+    | '/members'
+    | '/projects'
+    | '/team'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/admin' | '/events' | '/gallery' | '/join' | '/members'
+  to:
+    | '/'
+    | '/about'
+    | '/admin'
+    | '/events'
+    | '/gallery'
+    | '/join'
+    | '/members'
+    | '/projects'
+    | '/team'
   id:
     | '__root__'
     | '/'
@@ -96,6 +131,8 @@ export interface FileRouteTypes {
     | '/gallery'
     | '/join'
     | '/members'
+    | '/projects'
+    | '/team'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -106,6 +143,8 @@ export interface RootRouteChildren {
   GalleryRoute: typeof GalleryRoute
   JoinRoute: typeof JoinRoute
   MembersRoute: typeof MembersRoute
+  ProjectsRoute: typeof ProjectsRoute
+  TeamRoute: typeof TeamRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -159,6 +198,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof MembersRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/projects': {
+      id: '/projects'
+      path: '/projects'
+      fullPath: '/projects'
+      preLoaderRoute: typeof ProjectsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/team': {
+      id: '/team'
+      path: '/team'
+      fullPath: '/team'
+      preLoaderRoute: typeof TeamRouteImport
+      parentRoute: typeof rootRouteImport
+    }
   }
 }
 
@@ -170,6 +223,8 @@ const rootRouteChildren: RootRouteChildren = {
   GalleryRoute: GalleryRoute,
   JoinRoute: JoinRoute,
   MembersRoute: MembersRoute,
+  ProjectsRoute: ProjectsRoute,
+  TeamRoute: TeamRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

@@ -53,8 +53,10 @@ export function InteractiveMLSandbox() {
         const angle = i * 0.15;
         const label = i % 2;
         pts.push({
-          x: r * Math.cos(angle + (label ? Math.PI : 0)) + (Math.random() - 0.5) * noiseFactor * 0.3,
-          y: r * Math.sin(angle + (label ? Math.PI : 0)) + (Math.random() - 0.5) * noiseFactor * 0.3,
+          x:
+            r * Math.cos(angle + (label ? Math.PI : 0)) + (Math.random() - 0.5) * noiseFactor * 0.3,
+          y:
+            r * Math.sin(angle + (label ? Math.PI : 0)) + (Math.random() - 0.5) * noiseFactor * 0.3,
           label,
         });
       }
@@ -80,8 +82,12 @@ export function InteractiveMLSandbox() {
         return next;
       });
 
-      setAccuracy((prev) => Math.min(99.4, +(prev + Math.random() * 2.8 + learningRate * 10).toFixed(1)));
-      setLoss((prev) => Math.max(0.042, +(prev - Math.random() * 0.03 - learningRate * 0.05).toFixed(3)));
+      setAccuracy((prev) =>
+        Math.min(99.4, +(prev + Math.random() * 2.8 + learningRate * 10).toFixed(1)),
+      );
+      setLoss((prev) =>
+        Math.max(0.042, +(prev - Math.random() * 0.03 - learningRate * 0.05).toFixed(3)),
+      );
     }, 80);
 
     return () => clearInterval(interval);
@@ -106,7 +112,7 @@ export function InteractiveMLSandbox() {
       10,
       width / 2,
       height / 2,
-      width * (0.4 + progress * 0.2)
+      width * (0.4 + progress * 0.2),
     );
     grad.addColorStop(0, `rgba(37, 99, 235, ${0.08 + progress * 0.15})`);
     grad.addColorStop(1, `rgba(2, 132, 199, ${0.02 + progress * 0.05})`);
@@ -161,7 +167,9 @@ export function InteractiveMLSandbox() {
             <Cpu className="w-3.5 h-3.5" />
             <span>INTERACTIVE TENSOR LAB</span>
           </div>
-          <h3 className="text-lg sm:text-xl font-bold text-slate-900 font-display">Neural Decision Classifier</h3>
+          <h3 className="text-lg sm:text-xl font-bold text-slate-900 font-display">
+            Neural Decision Classifier
+          </h3>
           <p className="text-xs sm:text-sm text-slate-500">
             Simulate gradient descent convergence live in your browser.
           </p>
@@ -171,7 +179,9 @@ export function InteractiveMLSandbox() {
           <button
             onClick={() => setIsTraining(!isTraining)}
             className={`flex-1 sm:flex-none inline-flex items-center justify-center gap-2 font-bold text-xs px-5 py-3 rounded-xl transition-all shadow-md min-h-[44px] ${
-              isTraining ? "bg-amber-600 hover:bg-amber-700 text-white shadow-amber-500/20" : "bg-blue-600 hover:bg-blue-700 text-white shadow-blue-500/20"
+              isTraining
+                ? "bg-amber-600 hover:bg-amber-700 text-white shadow-amber-500/20"
+                : "bg-blue-600 hover:bg-blue-700 text-white shadow-blue-500/20"
             }`}
           >
             {isTraining ? (
@@ -211,7 +221,9 @@ export function InteractiveMLSandbox() {
 
           {/* Dataset Selector */}
           <div>
-            <label className="block text-xs font-medium text-slate-700 mb-1.5 font-mono">Dataset Topology</label>
+            <label className="block text-xs font-medium text-slate-700 mb-1.5 font-mono">
+              Dataset Topology
+            </label>
             <div className="grid grid-cols-3 gap-2">
               {(["circles", "moons", "spiral"] as DatasetType[]).map((type) => (
                 <button
@@ -292,7 +304,9 @@ export function InteractiveMLSandbox() {
         <div className="lg:col-span-8 flex flex-col items-center justify-center bg-slate-900 rounded-2xl p-4 sm:p-6 relative overflow-hidden border border-slate-800">
           <div className="absolute top-3 left-4 z-10 flex items-center gap-2">
             <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping" />
-            <span className="text-[10px] sm:text-xs text-slate-300 font-mono">LIVE_TENSOR_CANVAS</span>
+            <span className="text-[10px] sm:text-xs text-slate-300 font-mono">
+              LIVE_TENSOR_CANVAS
+            </span>
           </div>
 
           <canvas

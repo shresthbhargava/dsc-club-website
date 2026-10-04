@@ -2,9 +2,36 @@ import { useEffect, useRef } from "react";
 
 // DS / math symbols for data rain
 const SYMBOLS = [
-  "∂", "∑", "λ", "π", "∞", "∈", "⊕", "⊗", "∇", "∫",
-  "α", "β", "γ", "δ", "ε", "θ", "μ", "σ", "φ", "ψ",
-  "0", "1", "A", "I", "X", "Y", "Z", "►", "◆", "◀",
+  "∂",
+  "∑",
+  "λ",
+  "π",
+  "∞",
+  "∈",
+  "⊕",
+  "⊗",
+  "∇",
+  "∫",
+  "α",
+  "β",
+  "γ",
+  "δ",
+  "ε",
+  "θ",
+  "μ",
+  "σ",
+  "φ",
+  "ψ",
+  "0",
+  "1",
+  "A",
+  "I",
+  "X",
+  "Y",
+  "Z",
+  "►",
+  "◆",
+  "◀",
 ];
 
 interface Drop {
@@ -46,9 +73,12 @@ export function DataRainCanvas({ className = "" }: { className?: string }) {
         y: Math.random() * -canvas.height,
         speed: Math.random() * 1.5 + 0.5,
         length: Math.floor(Math.random() * 12) + 4,
-        chars: Array.from({ length: 20 }, () => SYMBOLS[Math.floor(Math.random() * SYMBOLS.length)]),
+        chars: Array.from(
+          { length: 20 },
+          () => SYMBOLS[Math.floor(Math.random() * SYMBOLS.length)] ?? "0",
+        ),
         brightness: Math.random() * 0.5 + 0.2,
-        color: COLUMN_COLORS[Math.floor(Math.random() * COLUMN_COLORS.length)],
+        color: COLUMN_COLORS[Math.floor(Math.random() * COLUMN_COLORS.length)] ?? "#4466ff",
       }));
     };
 
@@ -75,12 +105,10 @@ export function DataRainCanvas({ className = "" }: { className?: string }) {
             const cy = drop.y - j * CHAR_SIZE;
             if (cy < 0 || cy > canvas.height) continue;
 
-            const alpha = j === 0
-              ? 1
-              : (1 - j / drop.length) * drop.brightness;
+            const alpha = j === 0 ? 1 : (1 - j / drop.length) * drop.brightness;
 
             const charIdx = (Math.floor(frame / 8) + j) % drop.chars.length;
-            const char = drop.chars[charIdx];
+            const char = drop.chars[charIdx] ?? "0";
 
             ctx.save();
             ctx.globalAlpha = alpha;
@@ -103,9 +131,11 @@ export function DataRainCanvas({ className = "" }: { className?: string }) {
         drop.y += drop.speed * (repelled ? 0 : 1);
         if (drop.y > canvas.height + drop.length * CHAR_SIZE) {
           drop.y = -drop.length * CHAR_SIZE;
-          drop.chars = drop.chars.map(() => SYMBOLS[Math.floor(Math.random() * SYMBOLS.length)]);
+          drop.chars = drop.chars.map(
+            () => SYMBOLS[Math.floor(Math.random() * SYMBOLS.length)] ?? "0",
+          );
           drop.speed = Math.random() * 1.5 + 0.5;
-          drop.color = COLUMN_COLORS[Math.floor(Math.random() * COLUMN_COLORS.length)];
+          drop.color = COLUMN_COLORS[Math.floor(Math.random() * COLUMN_COLORS.length)] ?? "#4466ff";
         }
       }
 

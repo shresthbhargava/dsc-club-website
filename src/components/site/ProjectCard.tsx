@@ -33,12 +33,7 @@ export function ProjectCard({
       <div>
         {/* Header with Circular Project Image */}
         <div className="flex items-start justify-between gap-4 mb-4">
-          <CircleImage
-            src={imgUrl}
-            alt={title}
-            size={75}
-            accentColor={accentColor}
-          />
+          <CircleImage src={imgUrl} alt={title} size={75} accentColor={accentColor} />
           <div className="flex items-center gap-2">
             {githubUrl && (
               <a
@@ -69,9 +64,7 @@ export function ProjectCard({
         <h3 className="text-lg sm:text-xl font-bold font-display text-slate-900 mb-2 group-hover:text-[#3F8EFF] transition-colors leading-tight">
           {title}
         </h3>
-        <p className="text-xs text-slate-600 leading-relaxed mb-6">
-          {desc}
-        </p>
+        <p className="text-xs text-slate-600 leading-relaxed mb-6">{desc}</p>
       </div>
 
       {/* Tech Tags */}

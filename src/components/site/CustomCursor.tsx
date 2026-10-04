@@ -37,7 +37,7 @@ export function PixelCursor() {
         x: e.clientX,
         y: e.clientY,
         id: trailId++,
-        color: TRAIL_COLORS[trailId % TRAIL_COLORS.length],
+        color: TRAIL_COLORS[trailId % TRAIL_COLORS.length] ?? "#00e5ff",
       };
       trailRef.current = [newPt, ...trailRef.current.slice(0, 7)];
       setTrail([...trailRef.current]);
@@ -45,7 +45,8 @@ export function PixelCursor() {
       // Check for interactive elements
       const el = document.elementFromPoint(e.clientX, e.clientY);
       const isHover =
-        el?.matches("button, a, [role=button], input, select, textarea, label, [tabindex]") ?? false;
+        el?.matches("button, a, [role=button], input, select, textarea, label, [tabindex]") ??
+        false;
       setHovering(isHover);
     };
 
@@ -90,10 +91,7 @@ export function PixelCursor() {
       ))}
 
       {/* Main cursor */}
-      <motion.div
-        className="pixel-cursor"
-        style={{ x, y }}
-      >
+      <motion.div className="pixel-cursor" style={{ x, y }}>
         {/* Crosshair lines */}
         {hovering && (
           <>
